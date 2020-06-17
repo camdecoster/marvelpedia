@@ -1,0 +1,17 @@
+[
+  {
+    "id": 1,
+    "name": "Hulk",
+    "description": "A big green superhero"
+  },
+  {
+    "id": 2,
+    "name": "Iron Man",
+    "description": "A man in a mechanical supersuit"
+  },
+  {
+    "id": 3,
+    "name": "Thor",
+    "description": "The god of thunder"
+  }
+]

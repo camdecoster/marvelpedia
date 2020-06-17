@@ -1,0 +1,12 @@
+<h1>Creators</h1>
+
+<div *ngFor="let creator of creators">
+  <h3>
+    <a
+      [title]="creator.fullName + ' details'"
+      [routerLink]="['/creators', creator.id]"
+    >
+      {{ creator.fullName }}
+    </a>
+  </h3>
+</div>
