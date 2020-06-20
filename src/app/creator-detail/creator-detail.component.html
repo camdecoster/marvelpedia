@@ -1,11 +1,17 @@
 <div>
-  <h3>
-    {{ creator.fullName }}
-  </h3>
-  <div>
-    <a href="{{ creator.urls[0].url }}" target="_blank">
-      Marvel Details Page
-    </a>
-  </div>
-  <button (click)="goBack()">go back</button>
+    <img [src]="creator.thumbnail.path + '.' + creator.thumbnail.extension" />
+    <h3>
+        {{ creator.fullName }}
+    </h3>
+    <div>
+        <button (click)="toggleFavorite()" [class.favorite]="creator.favorite">
+            Favorite
+        </button>
+    </div>
+    <div *ngIf="creator.urls[0].url">
+        <a [href]="creator.urls[0].url" target="_blank">
+            Marvel Details Page
+        </a>
+    </div>
+    <button (click)="goBack()">Go Back</button>
 </div>

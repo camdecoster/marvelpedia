@@ -1,39 +1,27 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 
-import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { AppRoutingModule } from './app-routing.module';
+import { CharacterDetailComponent } from './character-detail/character-detail.component';
 import { CharacterListComponent } from './character-list/character-list.component';
-import { CharacterDetailsComponent } from './character-details/character-details.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { CreatorListComponent } from './creator-list/creator-list.component';
 import { CreatorDetailComponent } from './creator-detail/creator-detail.component';
-
-const routes: Routes = [
-  { path: '', component: DashboardComponent },
-  { path: 'characters', component: CharacterListComponent },
-  { path: 'characters/:characterId', component: CharacterDetailsComponent },
-  { path: 'creators', component: CreatorListComponent },
-  { path: 'creators/:creatorId', component: CreatorDetailComponent },
-];
+import { CreatorListComponent } from './creator-list/creator-list.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    CharacterListComponent,
-    DashboardComponent,
-    CreatorListComponent,
-    CreatorDetailComponent,
-  ],
-  imports: [
-    BrowserModule,
-    HttpClientModule,
-    AppRoutingModule,
-    RouterModule.forRoot(routes),
-  ],
-  providers: [],
-  bootstrap: [AppComponent],
+    declarations: [
+        AppComponent,
+        CharacterListComponent,
+        CharacterDetailComponent,
+        DashboardComponent,
+        CreatorListComponent,
+        CreatorDetailComponent,
+    ],
+    imports: [BrowserModule, CommonModule, HttpClientModule, AppRoutingModule],
+    providers: [],
+    bootstrap: [AppComponent],
 })
 export class AppModule {}

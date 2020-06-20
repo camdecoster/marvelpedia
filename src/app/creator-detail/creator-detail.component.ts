@@ -6,30 +6,36 @@ import { MarvelService } from '../marvel.service';
 import { Creator } from '../creator';
 
 @Component({
-  selector: 'app-creator-detail',
-  templateUrl: './creator-detail.component.html',
-  styleUrls: ['./creator-detail.component.css'],
+    selector: 'app-creator-detail',
+    templateUrl: './creator-detail.component.html',
+    styleUrls: ['./creator-detail.component.css'],
 })
 export class CreatorDetailComponent implements OnInit {
-  creator: Creator;
-  constructor(
-    private route: ActivatedRoute,
-    private marvelService: MarvelService,
-    private location: Location
-  ) {}
+    creator: Creator;
+    constructor(
+        private route: ActivatedRoute,
+        private marvelService: MarvelService,
+        private location: Location
+    ) {}
 
-  ngOnInit(): void {
-    this.getCreator();
-  }
+    ngOnInit(): void {
+        this.getCreator();
+    }
 
-  getCreator(): void {
-    const creatorId = +this.route.snapshot.paramMap.get('creatorId');
-    this.marvelService
-      .getCreator(creatorId)
-      .subscribe((creator) => (this.creator = creator[0]));
-  }
+    getCreator(): void {
+        const creatorId = +this.route.snapshot.paramMap.get('creatorId');
+        this.creator = this.marvelService.getCreator(creatorId);
+    }
 
-  goBack(): void {
-    this.location.back();
-  }
+    goBack(): void {
+        this.location.back();
+    }
+
+    toggleFavorite(): void {
+        this.marvelService.setFavorite(
+            this.creator.id,
+            !this.creator.favorite,
+            this.marvelService.getCreators()
+        );
+    }
 }

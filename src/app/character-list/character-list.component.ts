@@ -4,23 +4,20 @@ import { Character } from '../character';
 import { MarvelService } from '../marvel.service';
 
 @Component({
-  selector: 'app-character-list',
-  templateUrl: './character-list.component.html',
-  styleUrls: ['./character-list.component.css'],
+    selector: 'app-character-list',
+    templateUrl: './character-list.component.html',
+    styleUrls: ['./character-list.component.css'],
 })
 export class CharacterListComponent implements OnInit {
-  characters: Character[];
+    characters: Character[];
 
-  constructor(private marvelService: MarvelService) {}
+    constructor(private marvelService: MarvelService) {}
 
-  ngOnInit(): void {
-    this.getCharacters();
-  }
+    ngOnInit(): void {
+        this.getCharacters();
+    }
 
-  getCharacters(): void {
-    this.marvelService
-      .getCharacters()
-      .subscribe((characters) => (this.characters = characters));
-    console.log(this.characters);
-  }
+    getCharacters(): void {
+        this.characters = this.marvelService.getCharacters();
+    }
 }

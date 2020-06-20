@@ -1,0 +1,29 @@
+<div>
+    <img
+        [src]="character.thumbnail.path + '.' + character.thumbnail.extension"
+    />
+    <h3>
+        {{ character.name }}
+    </h3>
+    <p *ngIf="character.description; else noDesc">
+        {{ character.description }}
+    </p>
+    <ng-template #noDesc>No description provided.</ng-template>
+    <div>
+        <button
+            (click)="toggleFavorite()"
+            [class.favorite]="character.favorite"
+        >
+            Favorite
+        </button>
+    </div>
+
+    <div *ngIf="character.urls[1].type === 'wiki'">
+        <a [href]="character.urls[1].url" target="_blank"
+            >See Marvel Wiki Page</a
+        >
+    </div>
+    <div>
+        <button (click)="goBack()">Go Back</button>
+    </div>
+</div>

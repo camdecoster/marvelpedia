@@ -1,12 +1,32 @@
 <h1>Characters</h1>
+<p>
+    The list below shows official Marvel characters. Click a link to see the
+    details page.
+</p>
 
-<div *ngFor="let character of characters">
-  <h3>
-    <a
-      [title]="character.name + ' details'"
-      [routerLink]="['/characters', character.id]"
-    >
-      {{ character.name }}
-    </a>
-  </h3>
-</div>
+<table>
+    <tr *ngFor="let character of characters">
+        <!-- <td>
+            <img
+                [src]="
+                    character.thumbnail.path +
+                    '.' +
+                    character.thumbnail.extension
+                "
+            />
+        </td> -->
+        <td>
+            <h3>
+                <a
+                    [title]="character.name + ' details'"
+                    [routerLink]="['/characters', character.id]"
+                >
+                    {{ character.name }}
+                </a>
+            </h3>
+        </td>
+        <td>
+            <p *ngIf="character.description">HAS DESC</p>
+        </td>
+    </tr>
+</table>

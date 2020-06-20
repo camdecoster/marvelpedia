@@ -1,12 +1,20 @@
 <h1>Creators</h1>
+<p>
+    The list below shows official Marvel creators. Click a link to see the
+    details page.
+</p>
 
-<div *ngFor="let creator of creators">
-  <h3>
-    <a
-      [title]="creator.fullName + ' details'"
-      [routerLink]="['/creators', creator.id]"
-    >
-      {{ creator.fullName }}
-    </a>
-  </h3>
-</div>
+<table>
+    <tr *ngFor="let creator of creators">
+        <td>
+            <h3>
+                <a
+                    [title]="creator.fullName + ' details'"
+                    [routerLink]="['/creators', creator.id]"
+                >
+                    {{ creator.fullName }}
+                </a>
+            </h3>
+        </td>
+    </tr>
+</table>
