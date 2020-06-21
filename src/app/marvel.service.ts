@@ -36,10 +36,12 @@ export class MarvelService {
         if (!!dataCache) {
             // If character cache exists, save contents
             if (!!dataCache.characters) {
+                console.log('GETTING CHARACTER CACHE');
                 this.characters = dataCache.characters;
             }
             // If it doesn't, query API to get data
             else {
+                console.log('REQUESTING CHARACTER RESULTS');
                 this.requestApiData<Character>(
                     _apiInfo.characters.url,
                     this.characters
@@ -89,7 +91,6 @@ export class MarvelService {
             // Increment query offset
             queryParameters.offset += 100;
 
-            // console.log(response.data.total);
             total = response.data.total;
 
             // Uncomment below to keep polling API until all results are returned
@@ -131,8 +132,6 @@ export class MarvelService {
 
     // Generate query string that concatenates all API parameters in proper format
     private formatQueryParameters(queryParameters) {
-        // console.log('`formatQueryParameters` ran');
-
         const parameterString = Object.keys(queryParameters).map(
             (key) =>
                 `${encodeURIComponent(key)}=${encodeURIComponent(
@@ -160,11 +159,7 @@ export class MarvelService {
             (element) => element.id === id
         );
         const element = elementArray[index];
-        console.log(element);
         element.favorite = isFavorite;
-        console.log(
-            `${typeof element} favorite status changed to ${element.favorite}`
-        );
         this.setCache();
     }
 

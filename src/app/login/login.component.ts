@@ -28,8 +28,6 @@ export class LoginComponent implements OnInit {
     ngOnInit(): void {}
 
     onSubmit(loginInfo) {
-        console.log('SUBMIT CLICKED');
-        console.log(loginInfo);
         const token = this.auth.postLogin(loginInfo);
         if (!!token) {
             this.tokenService.saveAuthToken(token);
