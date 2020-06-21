@@ -11,7 +11,7 @@ const _apiInfo = {
         url: 'https://gateway.marvel.com/v1/public/characters',
     },
     creators: {
-        url: 'http://gateway.marvel.com/v1/public/creators',
+        url: 'https://gateway.marvel.com/v1/public/creators',
     },
     key: 'd6744625a3ce5b48b2d73c89e3cff87e',
 };
