@@ -7,6 +7,9 @@
 <table>
     <tr *ngFor="let character of characters">
         <td>
+            <p class="star" *ngIf="character.favorite">☆</p>
+        </td>
+        <td>
             <img
                 [src]="
                     character.thumbnail.path +

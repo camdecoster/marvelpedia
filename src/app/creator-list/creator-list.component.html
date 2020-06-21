@@ -7,6 +7,9 @@
 <table>
     <tr *ngFor="let creator of creators">
         <td>
+            <p class="star" *ngIf="creator.favorite">☆</p>
+        </td>
+        <td>
             <img
                 [src]="
                     creator.thumbnail.path + '.' + creator.thumbnail.extension
