@@ -1,0 +1,37 @@
+<div>
+    <h1>Login Form</h1>
+    <p>Log in with marveluser, test123</p>
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit(loginForm.value)">
+        <div>
+            <label for="username">
+                User Name
+            </label>
+            <input id="username" type="text" formControlName="username" />
+        </div>
+        <div>
+            <label for="password">
+                Password
+            </label>
+            <input id="password" type="password" formControlName="password" />
+        </div>
+        <button class="button" type="submit">Submit</button>
+        <!-- <fieldset>
+            <legend>Login</legend>
+            <div class="form-field">
+                <label>Email:</label>
+                <input name="email" formControlName="email" />
+            </div>
+            <div class="form-field">
+                <label>Password:</label>
+                <input
+                    name="password"
+                    formControlName="password"
+                    type="password"
+                />
+            </div>
+        </fieldset>
+        <div class="form-buttons">
+            <button class="button button-primary">Login</button>
+        </div> -->
+    </form>
+</div>

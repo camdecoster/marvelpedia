@@ -6,7 +6,7 @@
 
 <table>
     <tr *ngFor="let character of characters">
-        <!-- <td>
+        <td>
             <img
                 [src]="
                     character.thumbnail.path +
@@ -14,7 +14,7 @@
                     character.thumbnail.extension
                 "
             />
-        </td> -->
+        </td>
         <td>
             <h3>
                 <a
@@ -24,9 +24,6 @@
                     {{ character.name }}
                 </a>
             </h3>
-        </td>
-        <td>
-            <p *ngIf="character.description">HAS DESC</p>
         </td>
     </tr>
 </table>

@@ -1,11 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { of, merge, Observable } from 'rxjs';
-import { map, tap, catchError, expand } from 'rxjs/operators';
+import { of, Observable } from 'rxjs';
 
 import { Character } from './character';
 import { Creator } from './creator';
-import { MarvelElement } from './marvel-element';
 
 // Declare information to access relevant API's
 const _apiInfo = {
@@ -25,16 +23,14 @@ const CACHE_KEY = 'httpMarvelCache';
 })
 export class MarvelService {
     // Define member variables
-    // private apiKey = 'd6744625a3ce5b48b2d73c89e3cff87e';
-    // private API_ENDPOINT_CHARACTERS = `https://gateway.marvel.com/v1/public/characters`;
-    // private API_ENDPOINT_CREATORS = `http://gateway.marvel.com/v1/public/creators`;
-
     characters: Character[] = [];
     creators: Creator[] = [];
 
     constructor(private http: HttpClient) {
         // Get cache from local storage, if it exists
         const dataCache = JSON.parse(localStorage[CACHE_KEY] || '{}');
+
+        // ADD TIME CHECK FOR CACHE TO SEE IF IT SHOULD BE UPDATED
 
         // If cache exists, try to save contents
         if (!!dataCache) {
@@ -103,13 +99,13 @@ export class MarvelService {
             //     let parameterString = this.formatQueryParameters(
             //         queryParameters
             //     );
-            //     let url =
-            //         this._apiInfo.characters.url + '?' + parameterString;
+            //     let url = endpoint + '?' + parameterString;
 
             //     newResults = this.http.get<T>(url);
-            //     newResults.subscribe((response: any) =>
-            //         this.characters.push(...response.data.results)
-            //     );
+            //     newResults.subscribe((response: any) => {
+            //         resultsArray.push(...response.data.results);
+            //         this.setCache();
+            //     });
             //     queryParameters.offset += 100;
             // }
             this.setCache();
@@ -118,105 +114,14 @@ export class MarvelService {
 
     // Get all characters from Marvel API
     getCharacters(): Character[] {
-        // const dataCache = JSON.parse(localStorage[CACHE_KEY] || '[]');
-        // if (dataCache.length > 0) {
-        //     this.characters = dataCache;
-        // } else if (this.characters.length === 0) {
-        //     // Define API query parameters for getting blog ID, posts
-        //     const queryParameters = {
-        //         apikey: _apiInfo.key,
-        //         // API limits results to 100 results per query
-        //         limit: 100,
-        //         // Start requesting at 0
-        //         offset: 0,
-        //     };
-
-        //     // Create API query URL
-        //     let parameterString = this.formatQueryParameters(queryParameters);
-        //     let url = _apiInfo.characters.url + '?' + parameterString;
-
-        //     // Make first API call to get total number of characters,
-        //     // first 100 characters
-        //     const firstResult = this.http.get<Character[]>(url);
-        //     let total;
-
-        //     firstResult.subscribe((response: any) => {
-        //         let newResults;
-
-        //         // Add first 100 characters to characters array
-        //         this.characters.push(...response.data.results);
-
-        //         // Increment query offset
-        //         queryParameters.offset += 100;
-
-        //         console.log(response.data.total);
-        //         total = response.data.total;
-
-        //         // Uncomment below to keep polling API until all characters are returned
-
-        //         // while (queryParameters.offset < total) {
-        //         //     // Create new API query URL
-        //         //     let parameterString = this.formatQueryParameters(
-        //         //         queryParameters
-        //         //     );
-        //         //     let url =
-        //         //         this._apiInfo.characters.url + '?' + parameterString;
-
-        //         //     newResults = this.http.get<Character[]>(url);
-        //         //     newResults.subscribe((response: any) =>
-        //         //         this.characters.push(...response.data.results)
-        //         //     );
-        //         //     queryParameters.offset += 100;
-        //         // }
-        //         localStorage[CACHE_KEY] = JSON.stringify(this.characters);
-        //         console.log(this.characters);
-        //     });
-
-        //     // return firstResult.pipe(
-        //     //     map((response: any) => response.data.results),
-        //     //     catchError(this.handleError<Character[]>('getCharacters', []))
-        //     // );
-        // }
-
         return this.characters;
     }
 
-    // getCharacter(id: number): Observable<Character> {
     getCharacter(id: number): Character {
-        // If characters array is empty, fill it then return single character
-        // if (this.characters.length === 0) {
-        //     // Define API query parameters for getting blog ID, posts
-        //     const queryParameters = {
-        //         apikey: _apiInfo.key,
-        //     };
-
-        //     // Create API query URL
-        //     let parameterString = this.formatQueryParameters(queryParameters);
-        //     let url = `${_apiInfo.characters.url}/${id}?${parameterString}`;
-
-        //     const newResult = this.http
-        //         .get<Character[]>(url)
-        //         .pipe(map((response: any) => response.data.results));
-
-        //     return newResult.subscribe((character: Character[]) => character[0]);
-        // } else {
-
-        //     return this.characters.filter((character) => character.id === id)[0];
-        // }
-        // return this.http
-        //     .get<Character[]>(
-        //         `${this.API_ENDPOINT_CHARACTERS}/${id}?apikey=${this.apiKey}`
-        //     )
-        //     .pipe(map((response: any) => response.data.results));
         return this.characters.filter((character) => character.id === id)[0];
     }
 
     getCreators(): Creator[] {
-        // return this.http
-        //     .get<Creator[]>(
-        //         `${this.API_ENDPOINT_CREATORS}?apikey=${this.apiKey}&limit=${limit}&offset=${offset}`
-        //     )
-        //     .pipe(map((response: any) => response.data.results));
         return this.creators;
     }
 

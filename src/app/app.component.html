@@ -1,3 +1,17 @@
 <div class="container">
-  <router-outlet></router-outlet>
+    <nav>
+        <h2><a title="Marvelpedia" [routerLink]="'/'">Marvelpedia</a></h2>
+        <div class="container_nav_links">
+            <a title="Characters" [routerLink]="'/characters'">
+                Characters
+            </a>
+            <a title="Creators" [routerLink]="'/creators'">
+                Creators
+            </a>
+        </div>
+        <button *ngIf="this.tokenService.hasAuthToken()" (click)="logout()">
+            Logout
+        </button>
+    </nav>
+    <router-outlet></router-outlet>
 </div>

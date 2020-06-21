@@ -1,0 +1,18 @@
+nav {
+    position: sticky;
+    top: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: lightgray;
+}
+
+.container_nav_links {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.container_nav_links a {
+    margin: 5px;
+}
