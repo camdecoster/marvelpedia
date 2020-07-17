@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { of, Observable } from 'rxjs';
+import { mergeMap } from 'rxjs/operators';
 
+import { ApiResponse } from './apiResponse';
 import { Character } from './character';
 import { Creator } from './creator';
 
@@ -63,7 +65,10 @@ export class MarvelService {
         }
     }
 
-    requestApiData<T>(endpoint: string, resultsArray: T[]): void {
+    async requestApiData<T>(
+        endpoint: string,
+        resultsArray: T[]
+    ): Promise<void> {
         // Define API query parameters for getting blog ID, posts
         const queryParameters = {
             apikey: _apiInfo.key,
@@ -79,38 +84,57 @@ export class MarvelService {
 
         // Make first API call to get total number of results,
         // first 100 results
-        const firstResult = this.http.get<T[]>(url);
-        let total;
+        // let response = await this.http.get<ApiResponse>(url).toPromise();
+        let response = await this.getApiData(queryParameters, endpoint);
+        console.log(response);
 
-        firstResult.subscribe((response: any) => {
-            let newResults;
+        // Get total number of results available
+        // let total = response.data.total;
+        // Limit this for now because Local Storage has a limit of 520000 characters and getting
+        // all data goes above this
+        let total = 301;
 
-            // Add first 100 results to results array
-            resultsArray.push(...response.data.results);
+        let newResults = (response.data.results as unknown) as Array<T>;
+        console.log(newResults);
 
-            // Increment query offset
+        // Add first 100 results to results array
+        resultsArray.push(...newResults);
+
+        // Increment query offset
+        queryParameters.offset += 100;
+
+        // Uncomment below to keep polling API until all results are returned
+        while (queryParameters.offset < total) {
+            let response = await this.getApiData(queryParameters, endpoint);
+            newResults = (response.data.results as unknown) as Array<T>;
+
+            resultsArray.push(...newResults);
+
             queryParameters.offset += 100;
+        }
+        console.log('setting cache');
+        this.setCache();
+    }
 
-            total = response.data.total;
+    // Create API query URL, then fetch data from API
+    async getApiData(queryParameters, siteUrl: string) {
+        console.log('`getApiData` ran');
 
-            // Uncomment below to keep polling API until all results are returned
+        // Create API query URL for getting blog ID
+        let parameterString = this.formatQueryParameters(queryParameters);
+        let url = siteUrl + '?' + parameterString;
+        try {
+            // Get info from API
+            const response = await this.http.get<ApiResponse>(url).toPromise();
 
-            // while (queryParameters.offset < total) {
-            //     // Create new API query URL
-            //     let parameterString = this.formatQueryParameters(
-            //         queryParameters
-            //     );
-            //     let url = endpoint + '?' + parameterString;
-
-            //     newResults = this.http.get<T>(url);
-            //     newResults.subscribe((response: any) => {
-            //         resultsArray.push(...response.data.results);
-            //         this.setCache();
-            //     });
-            //     queryParameters.offset += 100;
-            // }
-            this.setCache();
-        });
+            // Make sure response is OK before proceeding
+            if (response.status !== 'Ok') {
+                throw new Error(response.status);
+            }
+            return response;
+        } catch (error) {
+            throw error;
+        }
     }
 
     // Get all characters from Marvel API
